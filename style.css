@@ -52,15 +52,3 @@ body, html {
   animation: zoom-in 2s ease;
 }
 
-@keyframes zoom-in {
-  0% {
-    scale: 100%;
-    filter: blur(0);
-  }
-  100% {
-    scale: 30%;
-		filter: blur(3px);
-  }
-}
-
-}
