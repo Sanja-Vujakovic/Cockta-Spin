@@ -1,0 +1,66 @@
+body, html {
+	height: 100%;
+	margin: 0rem;
+	font-family: kopik, sans-serif;
+	font-weight: 300;
+	font-style: normal;
+	letter-spacing: 1px;
+}
+
+/*eltern und großvater von column*/
+#wrapper {
+	min-height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+	flex-direction: column;
+	background-color: white;
+}
+
+.body {
+   display: block;
+   width: 100%;
+}
+
+#content {
+	clear:both;
+	display: flex;
+	flex: 1;
+  justify-content: center !important;
+  align-items: center !important;
+  align-content: center !important;
+}
+
+
+.mochi_column_image {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2.5em;
+  overflow: hidden;
+  -webkit-animation: reveal 1.9s ease;
+}
+
+.mochi_column_image img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.mochi_column_image img {
+  animation: zoom-in 2s ease;
+}
+
+@keyframes zoom-in {
+  0% {
+    scale: 100%;
+    filter: blur(0);
+  }
+  100% {
+    scale: 30%;
+		filter: blur(3px);
+  }
+}
+
+}
