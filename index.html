@@ -1,200 +1,79 @@
+//COCKTA SPIN
+//Use of perplexity.ai as a reference support and for errors
+//Sanja
+
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-    <title>MOCHI NEEDS SPACE</title>
-    
-    <meta http-equiv="content-type" content="text/html; chsarset=utf-8">
-    <meta http-equiv="Cache-control" content="no-cache">
+    <title>COCKTA SPIN</title>
+    <meta charset="utf-8">
     <style>
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: kopik, sans-serif;
-    font-weight: 300;
-    font-style: normal;s
-    letter-spacing: 1px;
-    background-color: #202020;
-    overflow: hidden;
-}
-
-#mycanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2; 
-    pointer-events: none; 
-}
-
-#wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    background-color: transparent; 
-}
-
-#content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent; 
-}
-
-.mochi_column {
-    background-color: transparent; 
-
-.mochi_column_image {
-    position: relative;
-    z-index: 1;
-}
-
-.mochi_column_image img {
-    display: block;
-    max-width: 90%; 
-    max-height: 90vh; 
-    width: auto;
-    height: auto;
-    object-fit: contain;
-}
-
-@keyframes zoom-in {
-    0% {
-        transform: scale(1);
-        filter: blur(0);
-    }
-    100% {
-        transform: scale(0.3);
-        filter: blur(3px);
-    }
-}
-
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #202020;
+        }
+        img {
+            max-width: 90%;
+            max-height: 90vh;
+        }
     </style>
 </head>
+<body>
+    <img src="images/cockta.png" onclick="spinRandomly(this)" id="spinningImage">
 
- <canvas id="mycanvas"></canvas>
-    <div id="wrapper">
-        <div id="content">
-            <div class="mochi_column">
-                <div class="mochi_column_image">
-                    <img src="images/cockta.png" onclick="startEffect()">
-                </div>
-            </div>
-        </div>
-    </div>
- 
+<script>
+let currentRotation = 0;
+let isSpinning = false;
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var canvas = document.getElementById("mycanvas");
-    var ccc = canvas.getContext("2d");
-    ccc.globalAlpha = 0.7; 
+function spinRandomly(img) {
+    if (isSpinning) return;
+    isSpinning = true;
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    var points = [];
-
-    class Point {
-        constructor(x, y, r) {
-            this.x = x;
-            this.y = y;
-            this.r = r;
-            this.vel_x = randomRange(-1, 1);
-            this.vel_y = randomRange(-1, 1);
-        }
-        draw() {
-            ccc.save();
-            ccc.translate(this.x, this.y);
-            ccc.beginPath();
-            ccc.fillStyle = "#A0A0A0";
-            ccc.arc(0, 0, this.r, 0, degToRad(360));
-            ccc.fill();
-            ccc.restore();
-        }
-    }
-
-    function initPoints() {
-        points = [];
-        for (var i = 0; i < 25; i++) {
-            var x = Math.random() * canvas.width;
-            var y = Math.random() * canvas.height;
-            var r = Math.random() * 20;
-            points[i] = new Point(x, y, r);
-        }
-    }
-
-    initPoints();
-
-    function update() {
-        ccc.clearRect(0, 0, canvas.width, canvas.height);
-        points.forEach(function(item) {
-            item.x += item.vel_x;
-            item.y += item.vel_y;
-            if (item.x > canvas.width || item.x < 0) {
-                item.vel_x *= -1;
-            }
-            if (item.y > canvas.height || item.y < 0) {
-                item.vel_y *= -1;
-            }
-            item.draw();
-        });
-        requestAnimationFrame(update);
-    }
-
-    update();
-
-    function degToRad(degrees) {
-        return degrees * Math.PI / 180;
-    }
-
-    function randomRange(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    window.addEventListener('resize', function() {
-        resizeCanvas();
-        initPoints();
-    });
-});
-
-function startEffect() {
-    const mochi_column_image = document.querySelector('.mochi_column_image');
-    const keyFrames = document.createElement("style");
-    keyFrames.innerHTML = `
-    @keyframes zoom-in {
-      0% {
-        transform: scale(1);
-        filter: blur(0.5);
-      }
-      100% {
-        transform: scale(0.3);
-        filter: blur(2px);
-      }
-    }
-  `;
-    document.head.appendChild(keyFrames);
-    mochi_column_image.style.animation = 'zoom-in 2s forwards';
-    setTimeout(function() {
-        document.head.removeChild(keyFrames);
-        mochi_column_image.style.animation = '';
-    }, 2000);
+    const totalRotation = 720 + Math.random() * 360;
+    const duration = 1.5 + Math.random() * 2; 
+    
+    currentRotation += totalRotation;
+    
+    img.style.transition = `transform ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    img.style.transform = `rotate(${currentRotation}deg)`;
+    
+    setTimeout(() => {
+        isSpinning = false;
+    }, duration * 1000);
 }
 
-    </script>
-</body>
+function wiggle() {
+    if (!isSpinning) {
+        const img = document.getElementById('spinningImage');
+        const wiggleAmount = 10;
+        const wiggleDuration = 0.25; 
+        
+        // Wiggle right
+        currentRotation += wiggleAmount;
+        img.style.transition = `transform ${wiggleDuration}s ease-in-out`;
+        img.style.transform = `rotate(${currentRotation}deg)`;
+        
+        setTimeout(() => {
+            // Wiggle left
+            currentRotation -= wiggleAmount * 2;
+            img.style.transform = `rotate(${currentRotation}deg)`;
+            
+            setTimeout(() => {
+                // Return to center
+                currentRotation += wiggleAmount;
+                img.style.transform = `rotate(${currentRotation}deg)`;
+            }, wiggleDuration * 1000);
+        }, wiggleDuration * 1000);
+    }
+}
 
+
+setInterval(wiggle, 5000);
+</script>
+</body>
 </html>
