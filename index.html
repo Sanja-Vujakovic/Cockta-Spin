@@ -17,63 +17,45 @@ Sanja Vujakovic-->
             align-items: center;
             background-color: #202020;
         }
+        
         img {
             max-width: 82%;
             max-height: 82vh;
+            animation: wiggle 5s infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            95% { transform: rotate(-5deg); }
+            97.5% { transform: rotate(5deg); }
         }
     </style>
 </head>
 <body>
-    <img src="cockta.png" onclick="spinRandomly(this)" id="spinningImage">
+    <img src="images/cockta.png" onclick="spinRandomly(this)" id="spinningImage">
 
-<script>
-let currentRotation = 0;
-let isSpinning = false;
+    <script>
+        let currentRotation = 0;
+        let isSpinning = false;
 
-function spinRandomly(img) {
-    if (isSpinning) return;
-    isSpinning = true;
+        function spinRandomly(img) {
+            if (isSpinning) return;
+            isSpinning = true;
 
-    const totalRotation = 720 + Math.random() * 360;
-    const duration = 1.5 + Math.random() * 2; 
-    
-    currentRotation += totalRotation;
-    
-    img.style.transition = `transform ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    img.style.transform = `rotate(${currentRotation}deg)`;
-    
-    setTimeout(() => {
-        isSpinning = false;
-    }, duration * 1000);
-}
-
-function wiggle() {
-    if (!isSpinning) {
-        const img = document.getElementById('spinningImage');
-        const wiggleAmount = 10;
-        const wiggleDuration = 0.25; 
-        
-        // Wiggle right
-        currentRotation += wiggleAmount;
-        img.style.transition = `transform ${wiggleDuration}s ease-in-out`;
-        img.style.transform = `rotate(${currentRotation}deg)`;
-        
-        setTimeout(() => {
-            // Wiggle left
-            currentRotation -= wiggleAmount * 2;
+            const totalRotation = 720 + Math.random() * 360;
+            const duration = 1.5 + Math.random() * 2;
+            
+            currentRotation += totalRotation;
+            
+            img.style.animation = 'none';
+            img.style.transition = `transform ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
             img.style.transform = `rotate(${currentRotation}deg)`;
             
             setTimeout(() => {
-                // Return to center
-                currentRotation += wiggleAmount;
-                img.style.transform = `rotate(${currentRotation}deg)`;
-            }, wiggleDuration * 1000);
-        }, wiggleDuration * 1000);
-    }
-}
-
-
-setInterval(wiggle, 5000);
-</script>
+                isSpinning = false;
+                img.style.animation = 'wiggle 5s infinite';
+            }, duration * 1000);
+        }
+    </script>
 </body>
 </html>
