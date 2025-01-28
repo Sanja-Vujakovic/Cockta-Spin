@@ -48,8 +48,8 @@ Sanja Vujakovic-->
             currentRotation += totalRotation;
             
             img.style.animation = 'none';
-            img.style.transition = 'transform ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1)';
-            img.style.transform = 'rotate(${currentRotation}deg)';
+            img.style.transition = `transform ${duration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+            img.style.transform = `rotate(${currentRotation}deg)`;
             
             setTimeout(() => {
                 isSpinning = false;
